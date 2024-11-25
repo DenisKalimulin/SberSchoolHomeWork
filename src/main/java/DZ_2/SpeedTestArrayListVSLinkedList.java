@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SpeedTestArrayListVSLinkedList {
-    private static final int OPERATIONS = 1000000;
+    private static final int OPERATIONS = 100000;
     private static long startTime;
     private static long endTime;
 
@@ -34,9 +34,6 @@ public class SpeedTestArrayListVSLinkedList {
         System.out.println("Получение элемента по индексу в ArrayList: " + (endTime - startTime) + "mc");
 
         //Время удаления первого элемента
-        for (int i = 0; i < OPERATIONS; i++) {
-            arrayList.add(i);
-        }
         startTime = System.currentTimeMillis();
         arrayList.remove(0);
         endTime = System.currentTimeMillis();
@@ -62,9 +59,6 @@ public class SpeedTestArrayListVSLinkedList {
         System.out.println("Получение элемента по индексу в LinkedList: " + (endTime - startTime) + "mc");
 
         //Время удаления первого элемента
-        for (int i = 0; i < OPERATIONS; i++) {
-            linkedList.add(i);
-        }
         startTime = System.currentTimeMillis();
         linkedList.remove(0);
         endTime = System.currentTimeMillis();

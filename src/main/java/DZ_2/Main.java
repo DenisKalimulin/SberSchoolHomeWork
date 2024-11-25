@@ -2,10 +2,10 @@ package DZ_2;
 
 public class Main {
     public static void main(String[] args) {
-        Task1.uniqueWords(Task1.words);
+        //Task1.uniqueWords(Task1.words);
         System.out.println("----------------------------------");
 
-        Task1.counterWords(Task1.words);
+        //Task1.counterWords(Task1.words);
         System.out.println("-----------------------------------");
 
         ContactManager contactManager = new ContactManager();

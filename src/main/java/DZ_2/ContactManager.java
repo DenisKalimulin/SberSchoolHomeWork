@@ -3,13 +3,10 @@ package DZ_2;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ContactManager {
-    private final HashMap<String, List<String>> contacts;
-
-    public ContactManager() {
-        contacts = new HashMap<>();
-    }
+    private final Map<String, List<String>> contacts = new HashMap<>();
 
     /**
      * Метод добавляет фамилию человека, и его номер телефона
@@ -35,4 +32,12 @@ public class ContactManager {
         return contacts.getOrDefault(surname, new ArrayList<>());
     }
 }
+/*
+    Написать простой класс ТелефонныйСправочник,
+    который хранит в себе список фамилий и телефонных номеров.
+    В этот телефонный справочник с помощью метода add() можно добавлять записи.
+    С помощью метода get() искать номер телефона по фамилии. Следует учесть, что под
+    одной фамилией может быть несколько телефонов (в случае однофамильцев), тогда при запросе
+    такой фамилии должны выводиться все телефоны.
+ */
 
