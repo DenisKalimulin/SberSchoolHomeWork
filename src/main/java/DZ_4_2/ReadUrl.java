@@ -14,7 +14,6 @@ public class ReadUrl {
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
 
-        // Проверяем код ответа
         int responseCode = connection.getResponseCode();
         if (responseCode == HttpURLConnection.HTTP_OK) { // 200
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -25,10 +24,8 @@ public class ReadUrl {
                 content.append(inputLine).append("\n");
             }
 
-            // Закрываем потоки
             in.close();
 
-            // Отображаем содержимое
             System.out.println("Содержимое сайта:");
             System.out.println(content.toString());
         } else {
