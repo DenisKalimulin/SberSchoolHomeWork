@@ -10,7 +10,7 @@ import java.lang.reflect.Proxy;
  * когда вызывается метод на прокси-объекте.
  */
 public class PerfomanceProxy implements InvocationHandler {
-    private Object proxy;
+    private final Object proxy;
 
     public PerfomanceProxy(Object proxy) {
         this.proxy = proxy;
