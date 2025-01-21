@@ -48,12 +48,15 @@ class FixedThreadPool implements ThreadPool {
      * @param runnable задача для выполнения
      * @throws IllegalStateException если пул потоков не запущен
      */
-    @Override
     public void execute(Runnable runnable) {
         if (!isRunning.get()) {
             throw new IllegalStateException("ThreadPool not started");
         }
-        taskQueue.offer(runnable);
+        try {
+            taskQueue.put(runnable);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 
     /**

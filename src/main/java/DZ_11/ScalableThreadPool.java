@@ -16,7 +16,6 @@ class ScalableThreadPool implements ThreadPool {
     private final Object lock = new Object();
     private int currentThreads;
     private final ThreadGroup workerGroup;
-
     /**
      * Конструктор ScalableThreadPool.
      *
@@ -60,7 +59,12 @@ class ScalableThreadPool implements ThreadPool {
         if (!isRunning.get()) {
             throw new IllegalStateException("ThreadPool not started");
         }
-        taskQueue.offer(runnable);
+        try {
+            taskQueue.put(runnable);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         synchronized (lock) {
             if (taskQueue.size() > currentThreads && currentThreads < maxThreads) {
                 addWorker();
@@ -82,7 +86,9 @@ class ScalableThreadPool implements ThreadPool {
      */
     private void removeWorker() {
         synchronized (lock) {
-            currentThreads--;
+            if (currentThreads > minThreads) {
+                currentThreads--;
+            }
         }
     }
 
@@ -98,19 +104,10 @@ class ScalableThreadPool implements ThreadPool {
         public void run() {
             while (isRunning.get() || !taskQueue.isEmpty()) {
                 try {
-                    Runnable task = taskQueue.poll();
-                    if (task != null) {
-                        task.run();
-                    } else {
-                        synchronized (lock) {
-                            if (currentThreads > minThreads && taskQueue.isEmpty()) {
-                                removeWorker();
-                                break;
-                            }
-                        }
-                    }
-                } catch (Exception e) {
-                    // Handle exception
+                    Runnable task = taskQueue.take();
+                    task.run();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
                 }
             }
         }
