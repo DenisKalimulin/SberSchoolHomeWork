@@ -16,5 +16,6 @@ public class LinkReader {
             System.err.println("Ошибка чтения файла: " + e.getMessage());
         }
         return urls;
+
     }
 }

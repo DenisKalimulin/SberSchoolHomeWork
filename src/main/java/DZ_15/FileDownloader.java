@@ -58,7 +58,7 @@ public class FileDownloader {
                 System.out.println("Скачался файл:  " + fileName);
             }
         } catch (IOException | InterruptedException e) {
-            System.err.println("Ошибка скачивания файла с " + urlStr + ": " + e.getMessage());
+            System.err.println("Ошибка скачивания файла с - " + urlStr + ": " + e.getMessage());
         }
     }
 
