@@ -46,5 +46,28 @@ public class Task<T> {
             super(message, cause);
         }
     }
+
+    public static void main(String[] args) {
+        Task<Integer> task = new Task<>(() -> {
+            Thread.sleep(1000);
+            return 42;
+        });
+
+        Runnable runnable = () -> {
+            try {
+                System.out.println(Thread.currentThread().getName() + " result: " + task.get());
+            } catch (RuntimeException e) {
+                System.err.println(Thread.currentThread().getName() + " encountered error: " + e.getMessage());
+            }
+        };
+
+        Thread thread1 = new Thread(runnable);
+        Thread thread2 = new Thread(runnable);
+        Thread thread3 = new Thread(runnable);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
 }
 
